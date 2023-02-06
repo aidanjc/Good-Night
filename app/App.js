@@ -3,35 +3,48 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
-// const {dateText, setDateText} = useState(new Date());
-function sleepQualityComponent(){
-  const [sleepQuality, setSleepQuality] = useState("80");
-  console.log("hi")
- useEffect(() => {
-  console.log(sleepQuality)
-    document.getElementById("sleepQualityProgressBar").value = sleepQuality
- });
+// TODO - replace 'localhost' by doing the following
+// 1. cd to Good-Night/app/
+// 2. run expo start
+// 3. find the ip address directly below the QR code
+// 4. replace 'localhost' with everything between
+//    'exp://' and ':' from the ip below the QR code
+const ip = "http://localhost:5000"
 
-//   return <CircularProgress
-//   value={this.sleepQuality} // value will be our sleep quality
-//   radius={120}
-//   progressValueColor={'black'}
-//   activeStrokeWidth={25}
-//   inActiveStrokeWidth={25}
-//   title={"Sleep Quality"}
-//   titleColor={"black"}
-//   titleFontSize={17}
-//   duration={2000}
-//   strokeColorConfig={[
-//     { color: '#cc7676', value: 0 },
-//     { color: '#ccc876', value: 50 },
-//     { color: '#76cc7b', value: 100 },
-//   ]}
-//   inActiveStrokeColor={'#c4c4c4'}
-// />
-return;
+const SleepQualityIndicator = () => {
+  const [sleepQuality, setSleepQuality] = useState(null);
+
+  useEffect(() => {
+    const fetchSleepQuality = async () => {
+      const response = await fetch(ip + "/api/sleep-quality");
+      const data = await response.json();
+      setSleepQuality(data["sleepQuality"]);
+    }
+
+    fetchSleepQuality();
+  }, []);
+
+  return (
+    <CircularProgress
+      id="sleepQualityProgressBar"
+      value={sleepQuality} 
+      radius={120}
+      progressValueColor={'black'}
+      activeStrokeWidth={25}
+      inActiveStrokeWidth={25}
+      title={"Sleep Quality"}
+      titleColor={"black"}
+      titleFontSize={17}
+      duration={2000}
+      strokeColorConfig={[
+        { color: '#cc7676', value: 0 },
+        { color: '#ccc876', value: 50 },
+        { color: '#76cc7b', value: 100 },
+      ]}
+      inActiveStrokeColor={'#c4c4c4'}
+    />
+  );
 }
-// const sq = 80;
 
 export default function App() {
   return (
@@ -45,29 +58,9 @@ export default function App() {
         <Text style={styles.date_style}> January 31, 2023 </Text>
       </View>
 
-    
-    <View style={styles.circle}>
-      <CircularProgress
-        id="sleepQualityProgressBar"
-        value={80} // value will be our sleep quality
-        radius={120}
-        progressValueColor={'black'}
-        activeStrokeWidth={25}
-        inActiveStrokeWidth={25}
-        title={"Sleep Quality"}
-        titleColor={"black"}
-        titleFontSize={17}
-        duration={2000}
-        strokeColorConfig={[
-          { color: '#cc7676', value: 0 },
-          { color: '#ccc876', value: 50 },
-          { color: '#76cc7b', value: 100 },
-        ]}
-        inActiveStrokeColor={'#c4c4c4'}
-      />
-    </View>
-
-    
+      <View style={styles.circle}>
+        <SleepQualityIndicator />
+      </View>
     </View>
   );
 }
