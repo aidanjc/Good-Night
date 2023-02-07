@@ -9,13 +9,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 // 3. find the ip address directly below the QR code
 // 4. replace 'localhost' with everything between
 //    'exp://' and ':' from the ip below the QR code
-//const ip = "http://localhost:5000"
-
-// HOME:
-//const ip = "http://192.168.1.39:5000"
-
-// SCHOOL:
-const ip = "http://169.234.21.82:5000"
+const ip = "http://localhost:5000"
 
 
 const SleepQualityIndicator = () => {
@@ -75,8 +69,11 @@ const SleepInfoItem = ({data, title}) => {
   );  
 }
 
+
 const SleepInfoContainer = () => {
   const [timeAsleep, setTimeAsleep] = useState(null);
+  const [bedTime, setBedTime] = useState(null);
+  const [wakeTime, setWakeTime] = useState(null);
 
   useEffect(() => {
     const fetchTimeAsleep = async () => {
@@ -85,21 +82,73 @@ const SleepInfoContainer = () => {
       setTimeAsleep(data["timeAsleep"]);
     }
 
+    const fetchBedTime = async () => {
+      const response = await fetch(ip + "/api/bed-time");
+      const data = await response.json();
+      setBedTime(data["bedTime"]);
+    }
+
+    const fetchWakeTime = async () => {
+      const response = await fetch(ip + "/api/wake-time");
+      const data = await response.json();
+      setWakeTime(data["wakeTime"]);
+    }
+
     fetchTimeAsleep();
+    fetchBedTime();
+    fetchWakeTime();
   }, []);
 
 
   return (
     <View style={styles.sleep_info_container}>
       <SleepInfoHeader />
-      <SleepInfoItem 
-        style={styles.sleep_info_item} 
-        data={timeAsleep} 
-        title={"Time Asleep"} 
-      />
+      <View style={styles.sleep_info_item_container}>
+        <SleepInfoItem 
+          style={styles.sleep_info_item} 
+          data={timeAsleep} 
+          title={"Time Asleep"} 
+        />
+        <SleepInfoItem 
+          style={styles.sleep_info_item} 
+          data={bedTime} 
+          title={"Went to Sleep"} 
+        />
+        <SleepInfoItem 
+          style={styles.sleep_info_item} 
+          data={wakeTime} 
+          title={"Woke Up"} 
+        />
+      </View>
     </View>
   );
+}
 
+const SleepRecContainer = () => {
+  const [sleepRecTitle, setSleepRecTitle] = useState(null);
+  const [sleepRecContent, setSleepRecContent] = useState(null);
+
+  useEffect(() => {
+    const fetchSleepRec = async () => {
+      const response = await fetch(ip + "/api/sleep-rec");
+      const data = await response.json();
+      setSleepRecTitle(data["sleepRecTitle"]);
+      setSleepRecContent(data["sleepRecContent"]);
+    }
+    
+    fetchSleepRec();
+  }, []);
+
+  return (
+    <View style={styles.sleep_rec_container}>
+      <Text style={styles.sleep_rec_title}>
+        {sleepRecTitle}
+      </Text>
+      <Text style={styles.sleep_rec_content}>
+        {sleepRecContent}
+      </Text>
+    </View>
+  );
 }
 
 
@@ -117,6 +166,7 @@ export default function App() {
 
       <SleepQualityIndicator />
       <SleepInfoContainer />
+      <SleepRecContainer />
     </View>
   );
 }
@@ -126,7 +176,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'beige',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     paddingTop: "15%",
     flexDirection: "column"
   },
@@ -155,7 +205,6 @@ const styles = StyleSheet.create({
   },
   circle: {
     flex: 1,
-    alignSelf: "",
     // backgroundColor: "tan", //used this to see the view
     alignSelf: "stretch",
     justifyContent: "center",
@@ -163,6 +212,8 @@ const styles = StyleSheet.create({
   },
   sleep_info_container: {
     flex: 1,
+    marginTop: "40%",
+    marginBottom: 10,
     width: "80%",
     flexDirection: "column",
   },
@@ -175,12 +226,29 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 6,
   },
-  sleep_info_item: {
-     
+  sleep_info_item_container: {
+    flex: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
   },
   horizontal_rule: {
     borderColor: "#c4c4c4",
     borderWidth: 2,
     borderRadius: 60,
+  },
+  sleep_rec_container: {
+    flex: 2,
+    width: "100%",
+    backgroundColor: "#c4c4c4",
+    borderTopLeftRadius: "20%",
+    borderTopRightRadius: "20%",
+    alignItems: "center",
+  },
+  sleep_rec_title: {
+    fontWeight: "700",
+    fontSize: 20,
+    marginTop: 10,
+    marginBottom: 10,
   }
 });
