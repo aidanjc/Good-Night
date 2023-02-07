@@ -9,7 +9,14 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 // 3. find the ip address directly below the QR code
 // 4. replace 'localhost' with everything between
 //    'exp://' and ':' from the ip below the QR code
-const ip = "http://localhost:5000"
+//const ip = "http://localhost:5000"
+
+// HOME:
+//const ip = "http://192.168.1.39:5000"
+
+// SCHOOL:
+const ip = "http://169.234.21.82:5000"
+
 
 const SleepQualityIndicator = () => {
   const [sleepQuality, setSleepQuality] = useState(null);
@@ -25,26 +32,76 @@ const SleepQualityIndicator = () => {
   }, []);
 
   return (
-    <CircularProgress
-      id="sleepQualityProgressBar"
-      value={sleepQuality} 
-      radius={120}
-      progressValueColor={'black'}
-      activeStrokeWidth={25}
-      inActiveStrokeWidth={25}
-      title={"Sleep Quality"}
-      titleColor={"black"}
-      titleFontSize={17}
-      duration={2000}
-      strokeColorConfig={[
-        { color: '#cc7676', value: 0 },
-        { color: '#ccc876', value: 50 },
-        { color: '#76cc7b', value: 100 },
-      ]}
-      inActiveStrokeColor={'#c4c4c4'}
-    />
+    <View style={styles.circle}>
+      <CircularProgress
+        id="sleepQualityProgressBar"
+        value={sleepQuality} 
+        radius={120}
+        progressValueColor={'black'}
+        activeStrokeWidth={25}
+        inActiveStrokeWidth={25}
+        title={"Sleep Quality"}
+        titleColor={"black"}
+        titleFontSize={17}
+        duration={2000}
+        strokeColorConfig={[
+          { color: '#cc7676', value: 0 },
+          { color: '#ccc876', value: 50 },
+          { color: '#76cc7b', value: 100 },
+        ]}
+        inActiveStrokeColor={'#c4c4c4'}
+      />
+    </View>
   );
 }
+
+const SleepInfoHeader = () => {
+  return (
+    <View style={styles.sleep_info_header}>
+      <Text style={styles.sleep_info_header_text}>
+        Sleep Info
+      </Text>
+      <View style={styles.horizontal_rule}></View>
+    </View>
+  )
+}
+
+const SleepInfoItem = ({data, title}) => {
+  return (
+    <View style={styles.sleep_info_item}>
+      <Text style={{fontWeight: "700"}}>{data}</Text>
+      <Text style={{color: "#c4c4c4"}}>{title}</Text>
+    </View>
+  );  
+}
+
+const SleepInfoContainer = () => {
+  const [timeAsleep, setTimeAsleep] = useState(null);
+
+  useEffect(() => {
+    const fetchTimeAsleep = async () => {
+      const response = await fetch(ip + "/api/time-asleep");
+      const data = await response.json();
+      setTimeAsleep(data["timeAsleep"]);
+    }
+
+    fetchTimeAsleep();
+  }, []);
+
+
+  return (
+    <View style={styles.sleep_info_container}>
+      <SleepInfoHeader />
+      <SleepInfoItem 
+        style={styles.sleep_info_item} 
+        data={timeAsleep} 
+        title={"Time Asleep"} 
+      />
+    </View>
+  );
+
+}
+
 
 export default function App() {
   return (
@@ -58,9 +115,8 @@ export default function App() {
         <Text style={styles.date_style}> January 31, 2023 </Text>
       </View>
 
-      <View style={styles.circle}>
-        <SleepQualityIndicator />
-      </View>
+      <SleepQualityIndicator />
+      <SleepInfoContainer />
     </View>
   );
 }
@@ -105,4 +161,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row"
   },
+  sleep_info_container: {
+    flex: 1,
+    width: "80%",
+    flexDirection: "column",
+  },
+  sleep_info_header: {
+    marginTop: 12,
+    marginBottom: 12,
+  },
+  sleep_info_header_text: {
+    fontWeight: "700",
+    fontSize: 18,
+    marginBottom: 6,
+  },
+  sleep_info_item: {
+     
+  },
+  horizontal_rule: {
+    borderColor: "#c4c4c4",
+    borderWidth: 2,
+    borderRadius: 60,
+  }
 });

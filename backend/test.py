@@ -1,8 +1,9 @@
 import requests
+from sleep import get_sleep_data
 
 def main():
-    resp = requests.get('http://127.0.0.1:5000/api/sleep-quality')
-    print(resp.json())
+    df = get_sleep_data('sleepdata.csv')
+    print(df.keys())
 
 if __name__ == "__main__":
     main()
