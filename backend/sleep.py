@@ -1,6 +1,9 @@
 import pandas as pd
 
-file = open("sleep-data/sleepdata.csv")
+def get_sleep_data(fp):
+    data = pd.read_csv('sleepdata.csv',sep = ';')
+    df = pd.DataFrame(data)
+    return df
 
 def get_sleep_recommendations(sleep_data):
     """
@@ -34,5 +37,3 @@ def get_sleep_recommendations(sleep_data):
         recommendations.append("Try to maintain a consistent bedtime schedule.")
     
     return recommendations
-
-get_sleep_recommendations(file)
