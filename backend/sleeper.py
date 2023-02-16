@@ -3,6 +3,12 @@ import pandas as pd
 import numpy as np
 import time
 
+# convert sleep data csv to pandas dataframe
+def get_sleep_data(fp):
+    data = pd.read_csv(fp, sep = ';')
+    df = pd.DataFrame(data)
+    return df
+
 class SleepData:
     def __init__(self, df):
         self.df = df
@@ -19,6 +25,21 @@ class SleepData:
         self.avg_7days_time_before_sleep = df["Time before sleep (seconds)"].iloc[-7:].mean()
         #Avg overall time before sleep
         self.yesterday_time_before_sleep = df["Time before sleep (seconds)"].iloc[-1:].mean()
+        
+        # Time Asleep
+        # Time Asleep yesterday (seconds)
+        self.yesterday_time_asleep_s = df["Time asleep (seconds)"].iloc[-1]
+        # Time Asleep yesterday (hours/mins)
+        self.yesterday_time_asleep_hm = time.strftime(
+                '%Hh %Mm', time.gmtime(self.yesterday_time_asleep_s))
+        
+        # Sleep Start (Time Went to Bed)
+        # Sleep Start yesterday
+        self.yesterday_sleep_start = df["Start"].iloc[-1].split(" ")[1][:-3]
+        
+        # Sleep End (Time Woke Up)
+        # Sleep End yesterday
+        self.yesterday_sleep_end = df["End"].iloc[-1].split(" ")[1][:-3]
 
         #Steps
 
@@ -102,7 +123,7 @@ class SleepData:
         recommendations = []
         
         # 1. give recommendation based on sleeper type and sleep duration
-        recommendations.append(self.idealSleepTime(sleeper,df["Time asleep (seconds)"].iloc[-1:].mean()))
+        recommendations.append(self.idealSleepTime(sleeper, self.df["Time asleep (seconds)"].iloc[-1:].mean()))
         
         # 2. give recommendation for bedtime
         
