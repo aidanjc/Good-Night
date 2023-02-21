@@ -9,7 +9,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 // 3. find the ip address directly below the QR code
 // 4. replace 'localhost' with everything between
 //    'exp://' and ':' from the ip below the QR code
-const ip = "http://localhost:5000"
+const ip = "localhost"
 
 
 const SleepQualityIndicator = () => {
@@ -150,6 +150,27 @@ const SleepRecContainer = () => {
     </View>
   );
 }
+const SleepDateContainer = () => {
+  const [dateRecorded, setdateRecorded] = useState(null);
+
+  useEffect(() => {
+    const fetchSleepDate = async () => {
+      const response = await fetch(ip + "/api/date-recorded");
+      const data = await response.json();
+      setdateRecorded(data["dateRecorded"]);
+    }
+
+    fetchSleepDate();
+  }, []);
+
+  return (
+  <View style={styles.date_container}> 
+        <Text style={styles.day_style}> Today </Text>
+        <Text style={styles.date_style}> {dateRecorded} </Text>
+  </View>);
+}
+
+
 
 
 export default function App() {
@@ -159,11 +180,11 @@ export default function App() {
       <StatusBar style="auto" />
       
       {/* Shows the day of the week and current date */}
-      <View style={styles.date_container}> 
+      {/* <View style={styles.date_container}> 
         <Text style={styles.day_style}> Today </Text>
         <Text style={styles.date_style}> January 31, 2023 </Text>
-      </View>
-
+      </View> */}
+      <SleepDateContainer />
       <SleepQualityIndicator />
       <SleepInfoContainer />
       <SleepRecContainer />
@@ -181,19 +202,8 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   day_style: {
-    // flex: 1,
     fontWeight: "900",
     fontSize: 30,
-    // textAlign: "left",
-    // alignSelf: "flex-start",
-    // paddingLeft: "7%",
-    // paddingBottom: "0%"
-  },
-  date_style: {
-    // flex: 20,
-    // textAlign: "left",
-    // alignSelf: "flex-start",
-    // paddingLeft: "7%",
   },
   date_container: {
     flex: 0,

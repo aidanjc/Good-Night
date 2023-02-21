@@ -33,6 +33,16 @@ def time_asleep_get():
 def bed_time_get():
     bed_time = df["Start"].iloc[-1].split(" ")[1] # gets HH:MM:SS
     bed_time = bed_time[:-3] # gets HH:MM
+    hours = int(bed_time[:-3])
+    # am_pm = "pm"
+    # if hours < 12:
+    #     if hours == 0:
+    #         hours = 12
+    #     am_pm = "am"
+    # else:
+    #     hours -= 12
+    # mins = bed_time[3:]
+    # bed_time = f"{hours}:{mins}{am_pm}"
     return jsonify(bedTime=bed_time)
 
 @app.get('/api/wake-time')
@@ -63,6 +73,18 @@ def sleep_rec_get():
         sleepRecTitle=sleep_rec_title,
         sleepRecContent=sleep_rec_content
         )
+
+@app.get('/api/date-recorded')
+def date_recorded_get():
+    # gets the date of the sleep log
+    months = ["January", "February", "March", "April", 
+              "May", "June", "July", "August",
+              "September", "October", "November", "December"]
+    date_recorded = df["Start"].iloc[-1].split(" ")[0] # gets YYYY-MM-DD
+    year, month, day = [int(i) for i in date_recorded.split("-")]
+    month = months[month-1]
+    date = f"{month} {day}, {year}"
+    return jsonify(dateRecorded=date)
 
 if __name__ == "__main__":
     app.run(host=ip, debug=True)
