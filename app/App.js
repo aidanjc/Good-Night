@@ -11,7 +11,6 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 //    'exp://' and ':' from the ip below the QR code
 const ip = "localhost"
 
-
 const SleepQualityIndicator = () => {
   const [sleepQuality, setSleepQuality] = useState(null);
 
@@ -72,8 +71,8 @@ const SleepInfoItem = ({data, title}) => {
 
 const SleepInfoContainer = () => {
   const [timeAsleep, setTimeAsleep] = useState(null);
-  const [bedTime, setBedTime] = useState(null);
-  const [wakeTime, setWakeTime] = useState(null);
+  const [sleepStart, setSleepStart] = useState(null);
+  const [sleepEnd, setSleepEnd] = useState(null);
 
   useEffect(() => {
     const fetchTimeAsleep = async () => {
@@ -82,21 +81,21 @@ const SleepInfoContainer = () => {
       setTimeAsleep(data["timeAsleep"]);
     }
 
-    const fetchBedTime = async () => {
-      const response = await fetch(ip + "/api/bed-time");
+    const fetchSleepStart = async () => {
+      const response = await fetch(ip + "/api/sleep-start");
       const data = await response.json();
-      setBedTime(data["bedTime"]);
+      setSleepStart(data["sleepStart"]);
     }
 
-    const fetchWakeTime = async () => {
-      const response = await fetch(ip + "/api/wake-time");
+    const fetchSleepEnd = async () => {
+      const response = await fetch(ip + "/api/sleep-end");
       const data = await response.json();
-      setWakeTime(data["wakeTime"]);
+      setSleepEnd(data["sleepEnd"]);
     }
 
     fetchTimeAsleep();
-    fetchBedTime();
-    fetchWakeTime();
+    fetchSleepStart();
+    fetchSleepEnd();
   }, []);
 
 
@@ -111,12 +110,12 @@ const SleepInfoContainer = () => {
         />
         <SleepInfoItem 
           style={styles.sleep_info_item} 
-          data={bedTime} 
-          title={"Went to Sleep"} 
+          data={sleepStart} 
+          title={"Went to Bed"} 
         />
         <SleepInfoItem 
           style={styles.sleep_info_item} 
-          data={wakeTime} 
+          data={sleepEnd} 
           title={"Woke Up"} 
         />
       </View>
@@ -125,28 +124,40 @@ const SleepInfoContainer = () => {
 }
 
 const SleepRecContainer = () => {
-  const [sleepRecTitle, setSleepRecTitle] = useState(null);
-  const [sleepRecContent, setSleepRecContent] = useState(null);
+  //const [sleepRecTitle, setSleepRecTitle] = useState(null);
+  //const [sleepRecContent, setSleepRecContent] = useState(null);
+  const [sleepRec, setSleepRec] = useState(null);
 
   useEffect(() => {
     const fetchSleepRec = async () => {
       const response = await fetch(ip + "/api/sleep-rec");
       const data = await response.json();
-      setSleepRecTitle(data["sleepRecTitle"]);
-      setSleepRecContent(data["sleepRecContent"]);
+      //setSleepRecTitle(data["sleepRecTitle"]);
+      //setSleepRecContent(data["sleepRecContent"]);
+      setSleepRec(data["sleepRec"])
     }
     
     fetchSleepRec();
   }, []);
-
+  
+  /*
   return (
     <View style={styles.sleep_rec_container}>
       <Text style={styles.sleep_rec_title}>
         {sleepRecTitle}
       </Text>
-      <Text style={styles.sleep_rec_content}>
+      <Text> 
         {sleepRecContent}
       </Text>
+    </View>
+  );
+  */
+  return (
+    <View style={styles.sleep_rec_container}>
+      <Text style={styles.sleep_rec_title}>
+        Sleep Recommendation
+      </Text>
+      <Text>{sleepRec}</Text>
     </View>
   );
 }
