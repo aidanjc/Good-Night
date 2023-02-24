@@ -1,5 +1,6 @@
 # app.py
 import time
+import math
 from sleeper import get_sleep_data, SleepData
 from flask import Flask, jsonify
 
@@ -11,7 +12,7 @@ app = Flask(__name__)
 #   3. find the ip address directly below the QR code
 #   4. replace 'localhost' with everything between
 #       'exp://' and ':' from the ip below the QR code
-#ip = "localhost"
+ip = "http://127.0.0.1:5000/"
 
 # csv sleep data to pandas DataFrame
 df = get_sleep_data('sleepdata.csv')
@@ -70,5 +71,28 @@ def date_recorded_get():
     date = f"{month} {day}, {year}"
     return jsonify(dateRecorded=date)
 
+@app.get('/api/avg-time-in-bed')
+def avg_time_in_bed_get():
+    time = sleep_obj.avg_bedTime
+    mins, hours = math.modf(time / 3600)
+    hours = int(hours)
+    mins = math.floor(mins * 60) 
+    time = f"{hours}h {mins}mins"
+    return jsonify(avgTimeInBed=time)
+
+@app.get('/api/avg-step-count')
+def avg_step_count_get():
+    count = math.ceil(sleep_obj.avg_steps)
+    return jsonify(stepCount=count)
+
+@app.get('/api/avg-time-before-sleep')
+def avg_time_before_sleep_get():
+    time = sleep_obj.avg_time_before_sleep
+    mins, hours = math.modf(time / 3600)
+    hours = int(hours)
+    mins = math.floor(mins * 60) 
+    time = f"{hours}h {mins}mins" if hours > 0 else f"{mins}mins"
+    return jsonify(timeBeforeSleep=time)
+    
 if __name__ == "__main__":
     app.run(host=ip, debug=True)
