@@ -7,7 +7,8 @@ import {
   StyleSheet,
 } from 'react-native';
 
-const ip = "http://192.168.1.143:5000/"
+//const ip = "http://192.168.1.143:5000/"
+const ip = "http://169.234.25.4:5000/"
 /*
   const [sleepRecs, setSleepRecs] = useState(null)
 
@@ -46,21 +47,57 @@ const CategoryList = ({ title, recList }) => {
   );  
 }
 
-const ExampleCategoryList = () => {
-  const [exampleSleepRecs, setExampleSleepRecs] = useState(null)
+const SleepRecList = () => {
+  const [sleepRecs, setSleepRecs] = useState(null)
 
   useEffect(() => {
-    const fetchExampleSleepRecs = async () => {
+    const fetchSleepRecs = async () => {
       const response = await fetch(ip + "/api/sleep-rec-list");
       const data = await response.json();
-      setExampleSleepRecs(data["sleepRecList"])
+      setSleepRecs(data["sleepRecList"])
     }
     
-    fetchExampleSleepRecs();
+    fetchSleepRecs();
   }, []);
   
   return (
-    <CategoryList title="Example Category" recList={exampleSleepRecs}/>
+    <CategoryList title="Sleep" recList={sleepRecs}/>
+  );
+}
+
+const DietRecList = () => {
+  const [dietRecs, setDietRecs] = useState(null)
+
+  useEffect(() => {
+    const fetchDietRecs = async () => {
+      const response = await fetch(ip + "/api/diet-rec-list");
+      const data = await response.json();
+      setDietRecs(data["dietRecList"])
+    }
+    
+    fetchDietRecs();
+  }, []);
+  
+  return (
+    <CategoryList title="Diet" recList={dietRecs}/>
+  );
+}
+
+const ExerciseRecList = () => {
+  const [exerciseRecs, setExerciseRecs] = useState(null)
+
+  useEffect(() => {
+    const fetchExerciseRecs = async () => {
+      const response = await fetch(ip + "/api/exercise-rec-list");
+      const data = await response.json();
+      setExerciseRecs(data["exerciseRecList"])
+    }
+    
+    fetchExerciseRecs();
+  }, []);
+  
+  return (
+    <CategoryList title="Exercise" recList={exerciseRecs}/>
   );
 }
 
@@ -71,7 +108,9 @@ const RecScreen = ({ navigation }) => {
       <Text style={styles.header}>
         Recommendations
       </Text>
-      <ExampleCategoryList />
+      <SleepRecList />
+      <DietRecList />
+      <ExerciseRecList />
     </View>
   );
 }
@@ -79,7 +118,6 @@ const RecScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
     alignItems: "center",
   },
   header: {
@@ -89,15 +127,15 @@ const styles = StyleSheet.create({
   },
   categoryList: {
     flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "flex-start"
+    marginTop: 10
   },
   categoryHeader: {
+    alignSelf: "center",
     fontWeight: "900",
     fontSize: 20
   },
   recItemContainer: {
-    width: "100%",
+    alignSelf: "stretch",
     backgroundColor: "#c4c4c4",
     borderRadius: 10,
     margin: 5,

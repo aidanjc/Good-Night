@@ -11,7 +11,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 //    'exp://' and ':' from the ip below the QR code
 
 //const ip = "http://localhost:5000/"
-const ip = "http://192.168.1.143:5000/"
+const ip = "http://169.234.25.4:5000/"
 
 const SleepQualityIndicator = () => {
   const [sleepQuality, setSleepQuality] = useState(null);

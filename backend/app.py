@@ -12,7 +12,8 @@ app = Flask(__name__)
 #   4. replace 'localhost' with everything between
 #       'exp://' and ':' from the ip below the QR code
 #ip = "localhost"
-ip = "192.168.1.143"
+#ip = "192.168.1.143"
+ip = "169.234.25.4"
 
 # csv sleep data to pandas DataFrame
 df = get_sleep_data('sleepdata.csv')
@@ -59,6 +60,16 @@ def sleep_rec_list_get():
     sleep_rec_list = sleep_obj.get_sleep_recommendations() # get list of sleep recs
     return jsonify(sleepRecList=sleep_rec_list)
 
+@app.get('/api/diet-rec-list')
+def diet_rec_list_get():
+    diet_rec_list = sleep_obj.get_diet_recommendations() # get list of diet recs
+    return jsonify(dietRecList=diet_rec_list)
+
+@app.get('/api/exercise-rec-list')
+def exercise_rec_list_get():
+    exercise_rec_list = sleep_obj.get_exercise_recommendations() # get list of exercise recs
+    return jsonify(exerciseRecList=exercise_rec_list)
+    
 @app.get('/api/date-recorded')
 def date_recorded_get():
     # gets the date of the sleep log
