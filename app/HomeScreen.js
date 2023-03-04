@@ -11,6 +11,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 //    'exp://' and ':' from the ip below the QR code
 
 //const ip = "http://localhost:5000/"
+const ip = "http://169.234.25.4:5000/"
 
 const SleepQualityIndicator = () => {
   const [sleepQuality, setSleepQuality] = useState(null);
@@ -125,34 +126,18 @@ const SleepInfoContainer = () => {
 }
 
 const SleepRecContainer = () => {
-  //const [sleepRecTitle, setSleepRecTitle] = useState(null);
-  //const [sleepRecContent, setSleepRecContent] = useState(null);
   const [sleepRec, setSleepRec] = useState(null);
 
   useEffect(() => {
     const fetchSleepRec = async () => {
-      const response = await fetch(ip + "/api/sleep-rec");
+      const response = await fetch(ip + "/api/top-sleep-rec");
       const data = await response.json();
-      //setSleepRecTitle(data["sleepRecTitle"]);
-      //setSleepRecContent(data["sleepRecContent"]);
-      setSleepRec(data["sleepRec"])
+      setSleepRec(data["topSleepRec"])
     }
     
     fetchSleepRec();
   }, []);
   
-  /*
-  return (
-    <View style={styles.sleep_rec_container}>
-      <Text style={styles.sleep_rec_title}>
-        {sleepRecTitle}
-      </Text>
-      <Text> 
-        {sleepRecContent}
-      </Text>
-    </View>
-  );
-  */
   return (
     <View style={styles.sleep_rec_container}>
       <Text style={styles.sleep_rec_title}>
@@ -193,10 +178,10 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.day_style}> Today </Text>
         <Text style={styles.date_style}> January 31, 2023 </Text>
       </View> */}
-      <SleepDateContainer ip={this.context} />
-      <SleepQualityIndicator ip={this.context} />
-      <SleepInfoContainer ip={this.context} />
-      <SleepRecContainer ip={this.context} />
+      <SleepDateContainer />
+      <SleepQualityIndicator />
+      <SleepInfoContainer />
+      <SleepRecContainer />
     </View>
   );
 }

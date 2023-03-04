@@ -93,11 +93,6 @@ class SleepData:
         """
         Returns a list of recommendations for sleeping better ranked in order of importance
         
-        Parameters
-        ----------
-        sleep_data : pandas.DataFrame
-            DataFrame containing sleep data
-    
         Returns
         -------
         list of str
@@ -138,6 +133,46 @@ class SleepData:
         return recommendations
 
 
+    def get_diet_recommendations(self):
+        """
+        Returns a list of recommendations for diet ranked in order of importance
+        
+        Returns
+        -------
+        list of str
+            List of recommendations for diet ranked in order of importance
+        """
+        # Analyze data and create diet recommendations
+        diet_recommendations = []
+        
+        diet_recommendations.append("Example Diet Recommendation 1") 
+        diet_recommendations.append("Example Diet Recommendation 2") 
+        diet_recommendations.append("Example Diet Recommendation 3") 
+        diet_recommendations.append("Example Diet Recommendation 4") 
+        diet_recommendations.append("Example Diet Recommendation 5") 
+
+        return diet_recommendations
+
+
+    def get_exercise_recommendations(self):
+        """
+        Returns a list of recommendations for exercise ranked in order of importance
+        
+        Returns
+        -------
+        list of str
+            List of recommendations for diet ranked in order of importance
+        """
+        # Analyze data and create exercise recommendations
+        exercise_recommendations = []
+        
+        exercise_recommendations.append("Example Exercise Recommendation 1") 
+        exercise_recommendations.append("Example Exercise Recommendation 2") 
+        exercise_recommendations.append("Example Exercise Recommendation 3") 
+        exercise_recommendations.append("Example Exercise Recommendation 4") 
+        exercise_recommendations.append("Example Exercise Recommendation 5") 
+
+        return exercise_recommendations 
 
     
 
