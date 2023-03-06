@@ -1,7 +1,7 @@
 # app.py
 import time
 from sleeper import get_sleep_data, SleepData
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -12,8 +12,7 @@ app = Flask(__name__)
 #   4. replace 'localhost' with everything between
 #       'exp://' and ':' from the ip below the QR code
 #ip = "localhost"
-#ip = "192.168.1.143"
-ip = "169.234.25.4"
+ip = "192.168.1.143"
 
 # csv sleep data to pandas DataFrame
 df = get_sleep_data('sleepdata.csv')
@@ -81,6 +80,18 @@ def date_recorded_get():
     month = months[month-1]
     date = f"{month} {day}, {year}"
     return jsonify(dateRecorded=date)
+
+@app.post('/api/signup')
+def signup_post():
+    # get user input from signup screen
+    data = request.get_json()
+    gender = data['gender']  
+    dinner_calories = data['dinnerCalories']
+    activity_level = data['activityLevel']
+    height = data['height']
+    weight = data['weight']
+    age = data['weight']
+    return data
 
 if __name__ == "__main__":
     app.run(host=ip, debug=True)
