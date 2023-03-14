@@ -4,9 +4,11 @@ import {
   StyleSheet, 
   Text, 
   View, 
-  TouchableOpacity,
+  Platform,
+  TextInput,
   Pressable,
-  TextInput
+  TouchableOpacity,
+  KeyboardAvoidingView
 } from 'react-native';
 
 // TODO - replace 'localhost' by doing the following
@@ -16,13 +18,16 @@ import {
 // 4. replace 'localhost' with everything between
 //    'exp://' and ':' from the ip below the QR code
 
-//const ip = "http://localhost:5000/"
+const ip = "http://localhost:5000/"
 
-const ip = "http://192.168.1.143:5000/"
+const behavior = Platform.OS === 'ios' ? 'padding' : 'height';
 
 const BtnGroup = ({ label, values, selectedValue, setSelectedValue }) => {
   return (
-    <View style={styles.btnGroupContainer}>
+    <KeyboardAvoidingView 
+      behavior={behavior}
+      style={styles.mainContainer}
+    >
       <Text style={styles.btnGroupLabel}>
         {label}
       </Text>
@@ -39,7 +44,7 @@ const BtnGroup = ({ label, values, selectedValue, setSelectedValue }) => {
           </TouchableOpacity>
         ))}
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -81,7 +86,10 @@ const SignInScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.mainContainer}>
+    <KeyboardAvoidingView 
+      behavior={behavior}
+      style={styles.mainContainer}
+    >
       <StatusBar style="auto" />
       <Text style={styles.header}>
         Sign In
@@ -149,7 +157,7 @@ const SignInScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

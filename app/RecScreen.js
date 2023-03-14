@@ -7,7 +7,14 @@ import {
   StyleSheet,
 } from 'react-native';
 
-const ip = "http://192.168.1.143:5000/"
+// TODO - replace 'localhost' by doing the following
+// 1. cd to Good-Night/app/
+// 2. run expo start
+// 3. find the ip address directly below the QR code
+// 4. replace 'localhost' with everything between
+//    'exp://' and ':' from the ip below the QR code
+
+const ip = "http://localhost:5000/"
 
 const RecItem = ({ content }) => {
   return (
