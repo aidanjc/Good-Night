@@ -7,21 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-//const ip = "http://192.168.1.143:5000/"
-const ip = "http://169.234.25.4:5000/"
-/*
-  const [sleepRecs, setSleepRecs] = useState(null)
-
-  useEffect(() => {
-    const fetchSleepRecs = async () => {
-      const response = await fetch(ip + "/api/sleep-rec-list");
-      const data = await response.json();
-      setSleepRecs(data["sleepRecList"])
-    }
-    
-    fetchSleepRecs();
-  }, []);
-*/
+const ip = "http://192.168.1.143:5000/"
 
 const RecItem = ({ content }) => {
   return (
