@@ -93,6 +93,70 @@ def avg_time_before_sleep_get():
     mins = math.floor(mins * 60) 
     time = f"{hours}h {mins}mins" if hours > 0 else f"{mins}mins"
     return jsonify(timeBeforeSleep=time)
+
+@app.get('/api/get-dates-past-7-logs')
+def dates_past_7_logs_get():
+    logs = sleep_obj.last_7_logs
+    return jsonify(past7Logs = logs)
     
+@app.get('/api/get-time-asleep-past-7-logs')
+def time_asleep_past_7_logs_get():
+    time_asleep = sleep_obj.past_7_logs_time_asleep
+    return jsonify(sleepTime7Logs = time_asleep)
+
+@app.get('/api/get-steps-last-7-logs')
+def steps_last_7_logs():
+    steps = sleep_obj.last_7_logs_steps
+    return jsonify(steps7Logs = steps)
+
+@app.get('/api/get-sleep-quality-last-7-logs')
+def sleep_quality_last_7_logs():
+    sleep_quality = sleep_obj.last_7_logs_sleep_quality
+    return jsonify(sleepQuality7Logs = sleep_quality)
+
+@app.get('/api/get-last-7-logs-before-sleep')
+def time_before_sleep_7_logs():
+    time_before_sleep = sleep_obj.avg_7days_time_before_sleep
+    mins, hours = math.modf(time_before_sleep / 3600)
+    hours = int(hours)
+    mins = math.floor(mins * 60) 
+    time_before_sleep = f"{hours}h {mins}mins" if hours > 0 else f"{mins}mins"
+    return jsonify(timeBeforeSleep = time_before_sleep)
+
+@app.get('/api/get-last-7-logs-steps')
+def steps_7_logs():
+    steps = sleep_obj.avg_7days_steps
+    return jsonify(steps=int(steps))
+
+@app.get('/api/get-last-30-logs-steps')
+def steps_30_logs():
+    steps = sleep_obj.avg_30days_steps
+    return jsonify(steps=int(steps))
+
+@app.get('/api/get-sleep-qualities')
+def sleep_qualities():
+    sq7 = "%.2f" % round(sleep_obj.avg_7days_sleep_quality, 2)
+    sq30 = "%.2f" % round(sleep_obj.avg_30days_sleep_quality, 2)
+    sleep = [sq7, sq30]
+    return jsonify(sleep=sleep)
+
+@app.get('/api/get-last-30-logs-time-before-sleep')
+def time_before_sleep_30_logs():
+    time_before_sleep = sleep_obj.avg_30days_time_before_sleep
+    mins, hours = math.modf(time_before_sleep / 3600)
+    hours = int(hours)
+    mins = math.floor(mins * 60) 
+    time_before_sleep = f"{hours}h {mins}mins" if hours > 0 else f"{mins}mins"
+    return jsonify(timeBeforeSleep=time_before_sleep)
+
+@app.get('/api/get-last-30-logs-time-in-bed')
+def time_in_bed_30_logs():
+    time_in_bed = sleep_obj.avg_30days_bedTime
+    mins, hours = math.modf(time_in_bed / 3600)
+    hours = int(hours)
+    mins = math.floor(mins * 60) 
+    time_in_bed = f"{hours}h {mins}mins" if hours > 0 else f"{mins}mins"
+    return jsonify(timeInBed=time_in_bed)
+
 if __name__ == "__main__":
     app.run(host=ip, debug=True)

@@ -10,7 +10,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 // 4. replace 'localhost' with everything between
 //    'exp://' and ':' from the ip below the QR code
 
-//const ip = "http://localhost:5000/"
+const ip = "http://localhost:5000/"
 
 const SleepQualityIndicator = () => {
   const [sleepQuality, setSleepQuality] = useState(null);
@@ -66,7 +66,7 @@ const SleepInfoItem = ({data, title}) => {
       <Text style={{fontWeight: "700"}}>{data}</Text>
       <Text style={{color: "#c4c4c4"}}>{title}</Text>
     </View>
-  );  
+  );
 }
 
 
@@ -193,10 +193,10 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.day_style}> Today </Text>
         <Text style={styles.date_style}> January 31, 2023 </Text>
       </View> */}
-      <SleepDateContainer ip={this.context} />
-      <SleepQualityIndicator ip={this.context} />
-      <SleepInfoContainer ip={this.context} />
-      <SleepRecContainer ip={this.context} />
+      <SleepDateContainer />
+      <SleepQualityIndicator />
+      <SleepInfoContainer />
+      <SleepRecContainer />
     </View>
   );
 }
