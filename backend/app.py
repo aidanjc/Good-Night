@@ -2,7 +2,7 @@
 import time
 import math
 from sleeper import get_sleep_data, SleepData
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -12,7 +12,7 @@ app = Flask(__name__)
 #   3. find the ip address directly below the QR code
 #   4. replace 'localhost' with everything between
 #       'exp://' and ':' from the ip below the QR code
-ip = "http://127.0.0.1:5000/"
+ip = "localhost"
 
 # csv sleep data to pandas DataFrame
 df = get_sleep_data('sleepdata.csv')
@@ -48,17 +48,27 @@ def sleep_end_get():
     sleep_end = sleep_obj.yesterday_sleep_end
     return jsonify(sleepEnd=sleep_end)
 
-@app.get('/api/sleep-rec')
-def sleep_rec_get():
-    # get list of sleep recommendations
-    #sleep_recs = get_sleep_recommendations(df)
-    # get highest ranking recommendation
-    #sleep_rec = sleep_recs[0]
-    #return jsonify(sleepRec=sleep_rec)
+@app.get('/api/top-sleep-rec')
+def top_sleep_rec_get():
     sleep_recs = sleep_obj.get_sleep_recommendations() # get list of sleep recs
-    sleep_rec = sleep_recs[0] # get highest ranking recommendation
-    return jsonify(sleepRec=sleep_rec)
+    top_sleep_rec = sleep_recs[0] # get highest ranking recommendation
+    return jsonify(topSleepRec=top_sleep_rec)
 
+@app.get('/api/sleep-rec-list')
+def sleep_rec_list_get():
+    sleep_rec_list = sleep_obj.get_sleep_recommendations() # get list of sleep recs
+    return jsonify(sleepRecList=sleep_rec_list)
+
+@app.get('/api/diet-rec-list')
+def diet_rec_list_get():
+    diet_rec_list = sleep_obj.get_diet_recommendations() # get list of diet recs
+    return jsonify(dietRecList=diet_rec_list)
+
+@app.get('/api/exercise-rec-list')
+def exercise_rec_list_get():
+    exercise_rec_list = sleep_obj.get_exercise_recommendations() # get list of exercise recs
+    return jsonify(exerciseRecList=exercise_rec_list)
+    
 @app.get('/api/date-recorded')
 def date_recorded_get():
     # gets the date of the sleep log
@@ -157,6 +167,18 @@ def time_in_bed_30_logs():
     mins = math.floor(mins * 60) 
     time_in_bed = f"{hours}h {mins}mins" if hours > 0 else f"{mins}mins"
     return jsonify(timeInBed=time_in_bed)
+
+@app.post('/api/signup')
+def signup_post():
+    # get user input from signup screen
+    data = request.get_json()
+    gender = data['gender']  
+    dinner_calories = data['dinnerCalories']
+    activity_level = data['activityLevel']
+    height = data['height']
+    weight = data['weight']
+    age = data['weight']
+    return data
 
 if __name__ == "__main__":
     app.run(host=ip, debug=True)

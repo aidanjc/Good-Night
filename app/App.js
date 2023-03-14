@@ -1,18 +1,21 @@
 import { useEffect, useState, createContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { SignInScreen } from './SignInScreen.js'
 import { HomeScreen } from './HomeScreen.js';
 import { RecScreen } from './RecScreen.js';
 import { StatScreen } from './StatScreen.js';
 import { PersonalScreen } from './PersonalScreen.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+const Home = () => {
   return (
-    <NavigationContainer> 
+    <NavigationContainer independent={true}> 
       <Tab.Navigator
         initialRouteName="Home" 
         screenOptions={{
@@ -61,6 +64,23 @@ export default function App() {
           }}
         />
       </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
+//<Stack.Screen name="Home" component={TabNavigator} />
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="SignIn"
+        screenOptions={{
+          headerShown: false
+        }}
+      >
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

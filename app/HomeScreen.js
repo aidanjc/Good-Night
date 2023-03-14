@@ -125,34 +125,18 @@ const SleepInfoContainer = () => {
 }
 
 const SleepRecContainer = () => {
-  //const [sleepRecTitle, setSleepRecTitle] = useState(null);
-  //const [sleepRecContent, setSleepRecContent] = useState(null);
   const [sleepRec, setSleepRec] = useState(null);
 
   useEffect(() => {
     const fetchSleepRec = async () => {
-      const response = await fetch(ip + "/api/sleep-rec");
+      const response = await fetch(ip + "/api/top-sleep-rec");
       const data = await response.json();
-      //setSleepRecTitle(data["sleepRecTitle"]);
-      //setSleepRecContent(data["sleepRecContent"]);
-      setSleepRec(data["sleepRec"])
+      setSleepRec(data["topSleepRec"])
     }
     
     fetchSleepRec();
   }, []);
   
-  /*
-  return (
-    <View style={styles.sleep_rec_container}>
-      <Text style={styles.sleep_rec_title}>
-        {sleepRecTitle}
-      </Text>
-      <Text> 
-        {sleepRecContent}
-      </Text>
-    </View>
-  );
-  */
   return (
     <View style={styles.sleep_rec_container}>
       <Text style={styles.sleep_rec_title}>
