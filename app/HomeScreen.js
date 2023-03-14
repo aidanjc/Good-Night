@@ -66,7 +66,7 @@ const SleepInfoItem = ({data, title}) => {
       <Text style={{fontWeight: "700"}}>{data}</Text>
       <Text style={{color: "#c4c4c4"}}>{title}</Text>
     </View>
-  );  
+  );
 }
 
 

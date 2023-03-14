@@ -32,7 +32,12 @@ class SleepData:
         # Time Asleep yesterday (hours/mins)
         self.yesterday_time_asleep_hm = time.strftime(
                 '%Hh %Mm', time.gmtime(self.yesterday_time_asleep_s))
+        # Time Asleep for the past 7 logs (seconds)
+        self.past_7_logs_time_asleep = [time_slept/3600 for time_slept in df["Time asleep (seconds)"].iloc[-7:-1]]
         
+        # Dates for past 7 logs
+        self.last_7_logs = ["/".join([str(int(log.split("-")[1])), str(int(log.split("-")[2][:2]))]) for log in df["Start"].iloc[-7:]]
+
         # Sleep Start (Time Went to Bed)
         # Sleep Start yesterday
         self.yesterday_sleep_start = df["Start"].iloc[-1].split(" ")[1][:-3]
@@ -51,6 +56,8 @@ class SleepData:
         self.avg_7days_steps = df["Steps"].iloc[-7:].mean() 
         #Yesterday's steps
         self.yesterday_steps = df["Steps"].iloc[-1:].mean() 
+        # Last 7 logs steps
+        self.last_7_logs_steps = [steps for steps in df["Steps"].iloc[-7:]]
 
         #Sleep quality
 
@@ -60,6 +67,8 @@ class SleepData:
         self.avg_7days_sleep_quality = df["Sleep Quality"].iloc[-7:].str.rstrip("%").astype(float).mean()
         #Yesterday sleep quality
         self.yesterday_sleep_quality = df["Sleep Quality"].iloc[-1:].str.rstrip("%").astype(float).mean()
+        # Last 7 logs sleep quality
+        self.last_7_logs_sleep_quality = [quality for quality in df["Sleep Quality"].iloc[-7:].str.rstrip("%").astype(float)]
 
     # 1 sleep cycle = 90 mins = 5400 s
     # 6 cycles, 9h of sleep = 32400s - recommended for long-sleepers 
