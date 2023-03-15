@@ -6,6 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const ip = "http://localhost:5000/"
+
 const StatContainer = ({icon, stat, label}) => {
   return (
     <LinearGradient 
@@ -16,7 +17,7 @@ const StatContainer = ({icon, stat, label}) => {
       <Text style={{paddingTop: "5%"}}> {stat} </Text>
     </View>
     <View style={{flexDirection: "row", justifyContent: "center"}}>
-      <Text style={{fontSize: "12"}}> {label} </Text>
+      <Text style={{fontSize: 12}}> {label} </Text>
     </View>
   </LinearGradient>
   )
@@ -331,16 +332,16 @@ const styles = StyleSheet.create({
     width: 125,
     height: 75,
     justifyContent: "center",
-    borderRadius: "20%",
+    borderRadius: 16,
   },
   inside_box:{
     flexDirection: "row",
     justifyContent: "center",
   },
   average_text_label:{
-    textAlign:"center",
-    fontSize:"15", 
-    paddingBottom:"2%"
+    textAlign: "center",
+    fontSize: 15, 
+    paddingBottom: "2%"
   }
 
 });
