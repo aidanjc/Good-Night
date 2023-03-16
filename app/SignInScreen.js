@@ -20,15 +20,10 @@ import {
 
 const ip = "http://localhost:5000/"
 
-const behavior = Platform.OS === 'ios' ? 'padding' : 'height';
-
 const BtnGroup = ({ label, values, selectedValue, setSelectedValue }) => {
   return (
-    <KeyboardAvoidingView 
-      behavior={behavior}
-      style={styles.mainContainer}
-    >
-      <Text style={styles.btnGroupLabel}>
+    <View style={styles.mainContainer}>
+      <Text style={styles.inputLabel}>
         {label}
       </Text>
       <View style={styles.btnGroup}>
@@ -44,22 +39,24 @@ const BtnGroup = ({ label, values, selectedValue, setSelectedValue }) => {
           </TouchableOpacity>
         ))}
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
 const SignInScreen = ({ navigation }) => {
   const [gender, setGender] = useState("Male");
-  const [dinnerCalories, setDinnerCalories] = useState("Less Than 400");
-  const [activityLevel, setActivityLevel] = useState("1 - Sedentary");
+  const [breakfastCalories, setBreakfastCalories] = useState("")
+  const [lunchCalories, setLunchCalories] = useState("")
+  const [diet, setDiet] = useState("Non-Vegetarian");
   const [height, setHeight] = useState("")
   const [weight, setWeight] = useState("");
   const [age, setAge] = useState("");
   
   const clearInput = () => {
     setGender("Male");
-    setDinnerCalories("Less Than 400");
-    setActivityLevel("1 - Sedentary");
+    setBreakfastCalories("");
+    setLunchCalories("");
+    setDiet("Non-Vegetarian");
     setHeight("");
     setWeight("");
     setAge("");
@@ -70,8 +67,9 @@ const SignInScreen = ({ navigation }) => {
       method: "POST",
       body: JSON.stringify({
         gender: gender,
-        dinnerCalories: dinnerCalories,
-        activityLevel: activityLevel,
+        breakfastCalories: breakfastCalories,
+        lunchCalories: lunchCalories,
+        diet: diet,
         height: height,
         weight: weight,
         age: age
@@ -87,14 +85,50 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView 
-      behavior={behavior}
       style={styles.mainContainer}
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      enabled={false}
     >
       <StatusBar style="auto" />
       <Text style={styles.header}>
         Sign In
       </Text>
       <View style={styles.formContainer}>
+        <Text style={styles.inputLabel}>Height (cm)</Text>
+        <TextInput 
+          style={styles.input} 
+          onChangeText={setHeight} 
+          value={height}
+          placeholder={"Height (cm)"}
+        />
+        <Text style={styles.inputLabel}>Weight (kg)</Text>
+        <TextInput 
+          style={styles.input} 
+          onChangeText={setWeight} 
+          value={weight}
+          placeholder={"Weight (kg)"}
+        />
+        <Text style={styles.inputLabel}>Age</Text>
+        <TextInput 
+          style={styles.input} 
+          onChangeText={setAge} 
+          value={age}
+          placeholder={"Age"}
+        />
+        <Text style={styles.inputLabel}>Breakfast Calories (kcals)</Text>
+        <TextInput 
+          style={styles.input} 
+          onChangeText={setBreakfastCalories} 
+          value={breakfastCalories}
+          placeholder={"Breakfast Calories (kcals)"}
+        />
+        <Text style={styles.inputLabel}>Lunch Calories (kcals)</Text>
+        <TextInput 
+          style={styles.input} 
+          onChangeText={setLunchCalories} 
+          value={lunchCalories}
+          placeholder={"Lunch Calories (kcals)"}
+        />
         <BtnGroup 
           label={"Gender"}
           values={[
@@ -104,43 +138,14 @@ const SignInScreen = ({ navigation }) => {
           selectedValue={gender}
           setSelectedValue={setGender}
         />
-        <TextInput 
-          style={styles.input} 
-          onChangeText={setHeight} 
-          value={height}
-          placeholder={"Height (Inches)"}
-        />
-        <TextInput 
-          style={styles.input} 
-          onChangeText={setWeight} 
-          value={weight}
-          placeholder={"Weight (lbs)"}
-        />
-        <TextInput 
-          style={styles.input} 
-          onChangeText={setAge} 
-          value={age}
-          placeholder={"Age"}
-        />
-        <BtnGroup
-          label={"Dinner Calories"}
-          values={[
-            "Less Than 400", 
-            "Between 400 And 700", 
-            "Greater Than 700"
-          ]}
-          selectedValue={dinnerCalories}
-          setSelectedValue={setDinnerCalories}
-        />
         <BtnGroup 
-          label={"Activity Level"}
+          label={"Diet"}
           values={[
-            "1 - Sedentary", 
-            "2 - Lightly Active", 
-            "3 - Moderately Active"
+            "Non-Vegetarian",
+            "Vegetarian"
           ]}
-          selectedValue={activityLevel}
-          setSelectedValue={setActivityLevel}
+          selectedValue={diet}
+          setSelectedValue={setDiet}
         />
         <View style={styles.btnGroup}>
           <TouchableOpacity 
@@ -169,7 +174,8 @@ const styles = StyleSheet.create({
   header: {
     fontWeight: "900",
     fontSize: 20,
-    marginTop: 50
+    marginTop: 50,
+    marginBottom: 10
   },
   formContainer: {
     flex: 1,
@@ -216,9 +222,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center"
   },
-  btnGroupLabel: {
+  inputLabel: {
     fontWeight: "600",
-    fontSize: 20,
+    fontSize: 18,
     margin: 5
   },
   btnGroup: {
@@ -232,7 +238,7 @@ const styles = StyleSheet.create({
     width: "80%",
     borderWidth: 1,
     borderRadius: 4,
-    margin: 10,
+    marginBottom: 12,
     padding: 10
   }
 });
