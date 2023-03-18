@@ -6,7 +6,6 @@ import {
   View, 
   Platform,
   TextInput,
-  Pressable,
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
@@ -22,7 +21,7 @@ const ip = "http://localhost:5000/"
 
 const BtnGroup = ({ label, values, selectedValue, setSelectedValue }) => {
   return (
-    <View style={styles.mainContainer}>
+    <View style={styles.container}>
       <Text style={styles.inputLabel}>
         {label}
       </Text>
@@ -85,7 +84,7 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView 
-      style={styles.mainContainer}
+      style={styles.container}
       behavior={Platform.OS == "ios" ? "padding" : "height"}
       enabled={false}
     >
@@ -167,7 +166,7 @@ const SignInScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  container: {
     flex: 1,
     alignItems: "center"
   },
@@ -217,10 +216,6 @@ const styles = StyleSheet.create({
   },
   selectedBtnText: {
     color: "white"
-  },
-  btnGroupContainer: {
-    flex: 1,
-    alignItems: "center"
   },
   inputLabel: {
     fontWeight: "600",

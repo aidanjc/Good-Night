@@ -26,16 +26,43 @@ personal_model = sleeper.PersonalModel(sleep_df, food_df)
 def signup_post():
     # get user input from signup screen
     data = request.get_json()
-    personal_model.get_user_input(data['gender'], 
-                                  int(data['breakfastCalories']), 
-                                  int(data['lunchCalories']), 
-                                  data['diet'], 
-                                  float(data['height']), 
-                                  float(data['weight']), 
-                                  int(data['age'])
-                                  )
+    personal_model.get_signup_data(data['gender'], 
+                                   int(data['breakfastCalories']), 
+                                   int(data['lunchCalories']), 
+                                   data['diet'], 
+                                   float(data['height']), 
+                                   float(data['weight']), 
+                                   int(data['age'])
+                                   )
     personal_model.build_personal_model()
     return data
+
+@app.post('/api/personal-data-update')
+def personal_data_update_post():
+    data = request.get_json()
+    personal_model.update_personal_data(data['gender'], 
+                                        data['diet'], 
+                                        float(data['height']), 
+                                        float(data['weight']), 
+                                        int(data['age'])
+                                        )
+    personal_model.build_personal_model()
+    return data
+
+@app.get('/api/personal-data')
+def personal_data_get():
+    gender = personal_model.gender
+    diet = "Vegetarian" if personal_model.is_vegetarian else "Non-Vegetarian"
+    height = personal_model.height
+    weight = personal_model.weight
+    age = personal_model.age
+    return jsonify(
+        gender=gender,
+        diet=diet,
+        height=height,
+        weight=weight,
+        age=age
+    )
 
 @app.get('/api/sleep-quality')
 def sleep_quality_get():

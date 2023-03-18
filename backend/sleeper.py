@@ -28,6 +28,7 @@ class PersonalModel:
         self.food_df = food_df
 
         # Personal
+        # User input
         self.gender = ""
         self.breakfast_calories = 0
         self.lunch_calories = 0
@@ -35,6 +36,7 @@ class PersonalModel:
         self.height = 0
         self.weight = 0
         self.age = 0
+        # Derived
         self.sleeper = None
         self.active_level = None
         self.remaining_calories_needed = None
@@ -100,7 +102,7 @@ class PersonalModel:
         # Last 7 logs sleep quality
         self.last_7_logs_sleep_quality = [quality for quality in sleep_df["Sleep Quality"].iloc[-7:].str.rstrip("%").astype(float)]
 
-    def get_user_input(self, gender, breakfast_calories, lunch_calories, diet, height, weight, age):
+    def get_signup_data(self, gender, breakfast_calories, lunch_calories, diet, height, weight, age):
         # set user's gender
         if gender == "Male":
             self.gender = "Male"
@@ -117,6 +119,22 @@ class PersonalModel:
         self.height = height # set user height
         self.weight = weight # set user weight
         self.age = age # set user age
+
+    def update_personal_data(self, gender, diet, height, weight, age):
+        # update user's gender
+        if gender == "Male":
+            self.gender = "Male"
+        else:
+            self.gender = "Female"
+
+        # update user's diet (Non-Vegetarian default)
+        if diet == "Vegetarian":
+            self.is_vegetarian = True
+        
+        self.height = height # update user height
+        self.weight = weight # update user weight
+        self.age = age # update user age
+        
 
     def get_ideal_sleep_time(self):
         """
