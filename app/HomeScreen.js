@@ -1,3 +1,4 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -39,9 +40,9 @@ const SleepQualityIndicator = () => {
         titleFontSize={17}
         duration={2000}
         strokeColorConfig={[
-          { color: '#cc7676', value: 0 },
-          { color: '#ccc876', value: 50 },
-          { color: '#76cc7b', value: 100 },
+          { color: 'black', value: 0 },
+          { color: 'black', value: 50 },
+          { color: 'black', value: 100 },
         ]}
         inActiveStrokeColor={'#c4c4c4'}
       />
@@ -138,12 +139,14 @@ const SleepRecContainer = () => {
   }, []);
   
   return (
-    <View style={styles.sleep_rec_container}>
+    <LinearGradient 
+    colors={["#D49EFF", "#F0DDFF"]}
+    style={styles.sleep_rec_container}>
       <Text style={styles.sleep_rec_title}>
         Sleep Recommendation
       </Text>
       <Text>{sleepRec}</Text>
-    </View>
+    </LinearGradient>
   );
 }
 const SleepDateContainer = () => {
@@ -188,7 +191,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'beige',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingTop: "15%",
@@ -236,14 +239,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   horizontal_rule: {
-    borderColor: "#c4c4c4",
+    borderColor: "#black",
     borderWidth: 2,
     borderRadius: 60,
   },
   sleep_rec_container: {
     flex: 2,
     width: "100%",
-    backgroundColor: "#c4c4c4",
+    backgroundColor: "#black",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20, 
     alignItems: "center",

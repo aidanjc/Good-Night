@@ -10,7 +10,7 @@ const ip = "http://localhost:5000/"
 const StatContainer = ({icon, stat, label}) => {
   return (
     <LinearGradient 
-    colors={['#FFB000', '#FFD26F']}
+    colors={["#D49EFF", "#F0DDFF"]}
     style={[styles.box]}>
     <View style={{flexDirection: "row", justifyContent: "center", width: "100%"}}> 
       <Ionicons name={icon} size={30}/>
@@ -173,8 +173,8 @@ const LineChartStats = ({label, data, legend, max}) => {
   height={220}
   yLabelsOffset={10}
   chartConfig={{
-    backgroundGradientFrom: "#FFB000",
-    backgroundGradientTo: "#FFD26F",
+    backgroundGradientFrom: "#C57DFF",
+    backgroundGradientTo: "#8E00FF",
     decimalPlaces: 0, // optional, defaults to 2dp
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
     labelColor: (opacity = 0.0) => `rgba(255, 255, 255, ${opacity})`,
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'beige',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingTop: "15%",

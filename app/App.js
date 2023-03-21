@@ -22,7 +22,7 @@ const Home = () => {
           tabBarStyle: { 
             backgroundColor: 'black', // TODO: Change
           },
-            tabBarActiveTintColor: 'fuchsia', // TODO: Change
+            tabBarActiveTintColor: '#FFE400', // TODO: Change
           tabBarInactiveTintColor: 'white', // TODO: Change
           headerShown: false,
         }}

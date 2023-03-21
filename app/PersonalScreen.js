@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'beige',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingTop: "15%",

@@ -20,7 +20,7 @@ const RecItem = ({ content }) => {
   return (
     <LinearGradient 
       style={styles.recItemContainer}
-      colors= {['#FFDD94', '#FEEDC8']}
+      colors= {['#C57DFF', '#E1BAFF']}
       >
       <Text>{ content }</Text>
     </LinearGradient>
@@ -31,7 +31,7 @@ const CategoryList = ({ title, recList }) => {
   return (
     // <View style={styles.categoryListStyle}>
     <LinearGradient 
-    colors={['#FFB000', '#FFDD94']}
+    colors={['#8E00FF', '#C57DFF']}
     style={[styles.categoryListStyle]}>
       <Text style={{textAlign: 'center'}}> {title} </Text>
       <FlatList 
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'beige',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingTop: "15%",
