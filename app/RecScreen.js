@@ -6,7 +6,7 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-
+import { LinearGradient } from 'expo-linear-gradient';
 // TODO - replace 'localhost' by doing the following
 // 1. cd to Good-Night/app/
 // 2. run expo start
@@ -18,25 +18,36 @@ const ip = "http://localhost:5000/"
 
 const RecItem = ({ content }) => {
   return (
-    <View style={styles.recItemContainer}>
+    <LinearGradient 
+      style={styles.recItemContainer}
+      colors= {['#FFDD94', '#FEEDC8']}
+      >
       <Text>{ content }</Text>
-    </View>
+    </LinearGradient>
   );
 }
 
 const CategoryList = ({ title, recList }) => {
   return (
-    <FlatList 
+    // <View style={styles.categoryListStyle}>
+    <LinearGradient 
+    colors={['#FFB000', '#FFDD94']}
+    style={[styles.categoryListStyle]}>
+      <Text style={{textAlign: 'center'}}> {title} </Text>
+      <FlatList 
       data={recList}
       renderItem={({ item }) => <RecItem content={item} />}
       contentContainerStyle={styles.categoryList}
       style={{ width: "100%" }}
-      ListHeaderComponent={() => (
-        <Text style={styles.categoryHeader}>
-          {title}
-        </Text>
-      )}
+      // ListHeaderComponent={() => (
+      //   <Text style={styles.categoryHeader}>
+      //     {title}
+      //   </Text>
+      // )}
     />
+    </LinearGradient>
+    // </View>
+    
   );  
 }
 
@@ -125,7 +136,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingTop: "15%",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   date_container: {
     flex: 0,
@@ -152,7 +163,50 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 5,
     padding: 5
-  }
+  },
+  categoryListStyle: {
+  flex: 1,
+  backgroundColor: "white", 
+  flexDirection: "column", 
+  justifyContent: "center", 
+  width: "100%", 
+  borderRadius: "20%",
+  backgroundColor: "#FF9D00",
+  paddingBottom: "2%",
+}
 });
 
 export { RecScreen };
+
+// const CategoryList = ({ title, recList }) => {
+//   return (
+//     // <View style={styles.categoryListStyle}>
+//     <LinearGradient 
+//     colors={['#FFB000', '#FFDD94']}
+//     style={[styles.categoryListStyle]}>
+//       <Text style={{textAlign: 'center'}}> {title} </Text>
+//       <FlatList 
+//       data={recList}
+//       renderItem={({ item }) => <RecItem content={item} />}
+//       contentContainerStyle={styles.categoryList}
+//       style={{ width: "100%" }}
+//       // ListHeaderComponent={() => (
+//       //   <Text style={styles.categoryHeader}>
+//       //     {title}
+//       //   </Text>
+//       // )}
+//     />
+//     </LinearGradient>
+//     // </View>
+    
+//   );  
+// }
+// categoryListStyle: {
+//   flex: 1,
+//   backgroundColor: "white", 
+//   flexDirection: "column", 
+//   justifyContent: "center", 
+//   width: "100%", 
+//   borderRadius: "20%",
+//   backgroundColor: "#FF9D00",
+// }

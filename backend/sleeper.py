@@ -364,13 +364,15 @@ class PersonalModel:
         time_until_bed = self.remaining_time_until_bedtime()   
         temp_foodDF = self.food_df.sort_values('calories',ascending = False)
         temp_foodDF = temp_foodDF[(temp_foodDF['calories'] <= (self.remaining_calories_needed)) & (temp_foodDF["minutes"] <= 120)] 
+
         temp_foodDF = temp_foodDF.reset_index(drop = True) # drop the existing index
-        
         if self.is_vegetarian:
             temp_foodDF = temp_foodDF[(temp_foodDF['food types'] =='Veg') | (temp_foodDF['food types'] =='Veg dessert') ]
             temp_foodDF = temp_foodDF.reset_index(drop = True) # drop the existing index
+
         # >=5hrs     
         if(time_until_bed >= (5*60*60)):
+
             for i in range (0,number_foods):
                 food_name_list.append(temp_foodDF["name"][i])
                 food_calories_list.append(temp_foodDF["calories"][i])
@@ -382,12 +384,12 @@ class PersonalModel:
             if not self.is_vegetarian:
                 temp_foodDF =temp_foodDF[temp_foodDF['food types'] =='Healthy']
                 temp_foodDF = temp_foodDF.reset_index(drop = True) # drop the existing index
-            for i in range (0,number_foods):
-                food_name_list.append(temp_foodDF["name"][i])
-                food_calories_list.append(temp_foodDF["calories"][i])
-                food_time_list.append(temp_foodDF["minutes"][i])
-                food_ingredients_list.append(temp_foodDF["ingredients"][i])
-                food_steps_list.append(temp_foodDF["steps"][i])
+        for i in range (0,number_foods):
+            food_name_list.append(temp_foodDF["name"][i])
+            food_calories_list.append(temp_foodDF["calories"][i])
+            food_time_list.append(temp_foodDF["minutes"][i])
+            food_ingredients_list.append(temp_foodDF["ingredients"][i])
+            food_steps_list.append(temp_foodDF["steps"][i])
 
         diet_recommendations = []
 
@@ -402,9 +404,9 @@ class PersonalModel:
         else:
             diet_recommendations.append("List of food/recipes you might interested based on your preference: \n")
             for i in range (0,number_foods):
-                diet_recommendations.append(str(i+1)+". "+str(food_name_list[i])+". " +str(food_calories_list[i]) +" kcals. " 
+                    diet_recommendations.append(str(i+1)+". "+str(food_name_list[i])+". " +str(food_calories_list[i]) +" kcals. " 
                                                    +str(food_time_list[i])+" minutes to cook.")
-        
+        print(diet_recommendations)
         return diet_recommendations
 
 
