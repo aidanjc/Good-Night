@@ -129,7 +129,7 @@ const SignInScreen = ({ navigation }) => {
           placeholder={"Lunch Calories (kcals)"}
         />
         <BtnGroup 
-          label={"Sex"}
+          label={"Gender"}
           values={[
             "Male", 
             "Female"
