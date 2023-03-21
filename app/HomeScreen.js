@@ -140,12 +140,12 @@ const SleepRecContainer = () => {
   
   return (
     <LinearGradient 
-    colors={["#D49EFF", "#F0DDFF"]}
+    colors={["#9614FF", "#C57DFF"]}
     style={styles.sleep_rec_container}>
       <Text style={styles.sleep_rec_title}>
         Sleep Recommendation
       </Text>
-      <Text>{sleepRec}</Text>
+      <Text style={{color: "white"}}>{sleepRec}</Text>
     </LinearGradient>
   );
 }
@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 10,
     marginBottom: 10,
+    color: "white"
   }
 });
 

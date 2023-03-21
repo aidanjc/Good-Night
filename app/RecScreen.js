@@ -31,9 +31,9 @@ const CategoryList = ({ title, recList }) => {
   return (
     // <View style={styles.categoryListStyle}>
     <LinearGradient 
-    colors={['#8E00FF', '#C57DFF']}
+    colors={['#9614FF', '#C57DFF']}
     style={[styles.categoryListStyle]}>
-      <Text style={{textAlign: 'center'}}> {title} </Text>
+      <Text style={{textAlign: 'center', color: "white", fontWeight: "900"}}> {title} </Text>
       <FlatList 
       data={recList}
       renderItem={({ item }) => <RecItem content={item} />}
