@@ -115,7 +115,9 @@ class PersonalModel:
         # set user's diet (Non-Vegetarian default)
         if diet == "Vegetarian":
             self.is_vegetarian = True
-        
+        else:
+            self.is_vegetarian = False
+         
         self.height = height # set user height
         self.weight = weight # set user weight
         self.age = age # set user age
@@ -130,6 +132,8 @@ class PersonalModel:
         # update user's diet (Non-Vegetarian default)
         if diet == "Vegetarian":
             self.is_vegetarian = True
+        else:
+            self.is_vegetarian = False
         
         self.height = height # update user height
         self.weight = weight # update user weight
@@ -305,6 +309,7 @@ class PersonalModel:
         self.remaining_calories_needed = int(self.get_calories_needed_for_dinner()) 
         self.ideal_bedtime = str(self.get_ideal_bed_time())
 
+
     def get_sleep_recommendations(self):
         """
         Returns a list of recommendations for sleeping better ranked in order of importance
@@ -361,7 +366,7 @@ class PersonalModel:
         temp_foodDF = temp_foodDF[(temp_foodDF['calories'] <= (self.remaining_calories_needed)) & (temp_foodDF["minutes"] <= 120)] 
         temp_foodDF = temp_foodDF.reset_index(drop = True) # drop the existing index
         
-        if(self.is_vegetarian == True):
+        if self.is_vegetarian:
             temp_foodDF = temp_foodDF[(temp_foodDF['food types'] =='Veg') | (temp_foodDF['food types'] =='Veg dessert') ]
             temp_foodDF = temp_foodDF.reset_index(drop = True) # drop the existing index
         # >=5hrs     
@@ -374,7 +379,7 @@ class PersonalModel:
                 food_steps_list.append(temp_foodDF["steps"][i])
         # >=4hr
         elif(time_until_bed>=(4*60*60)):
-            if(self.is_vegetarian == False):
+            if not self.is_vegetarian:
                 temp_foodDF =temp_foodDF[temp_foodDF['food types'] =='Healthy']
                 temp_foodDF = temp_foodDF.reset_index(drop = True) # drop the existing index
             for i in range (0,number_foods):
