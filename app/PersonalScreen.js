@@ -111,7 +111,7 @@ const PersonalScreen = ({ navigation }) => {
           value={age.toString()}
         />
         <BtnGroup 
-          label={"Gender"}
+          label={"Sex"}
           values={[
             "Male", 
             "Female"
