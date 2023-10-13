@@ -1,12 +1,12 @@
 # Good-Night
-Project for CS125
+Group Project for CS125
 
-Hey guys, this is where we can keep each of our files as we build our app
+To Run Flask:
+1. ```cd Good-Night/backend```
+2. set value of ip in app.py to your device's ipv4 address
+3. run ```python app.py```
 
-Run the following commands:
-1. cd app
-2. npx expo start
-
-In order to see the mobile app you need to download the Expo Go app and scan the QR code given when running the 'npx expo start' command.
-
-For some reason 'npx expo start' broke and I fixed it using 'npm i expo-cli' and ran it with 'npm start'
+To Run App:
+1. ```cd Good-Night/app```
+2. replace localhost in baseurl.js with ip address of the machine that will run the expo cli
+3. run ```npx expo start```
