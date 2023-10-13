@@ -12,8 +12,7 @@ app = Flask(__name__)
 #   3. find the ip address directly below the QR code
 #   4. replace 'localhost' with everything between
 #       'exp://' and ':' from the ip below the QR code
-#ip = "localhost"
-ip = "192.168.1.144"
+ip = "localhost"
 
 # csv sleep data to pandas DataFrame
 sleep_df = sleeper.get_sleep_data('sleepdata.csv')
