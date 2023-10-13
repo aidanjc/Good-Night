@@ -12,7 +12,8 @@ app = Flask(__name__)
 #   3. find the ip address directly below the QR code
 #   4. replace 'localhost' with everything between
 #       'exp://' and ':' from the ip below the QR code
-ip = "localhost"
+#ip = "localhost"
+ip = "192.168.1.144"
 
 # csv sleep data to pandas DataFrame
 sleep_df = sleeper.get_sleep_data('sleepdata.csv')
@@ -27,8 +28,8 @@ def signup_post():
     # get user input from signup screen
     data = request.get_json()
     personal_model.get_signup_data(data['gender'], 
-                                   int(data['breakfastCalories']), 
-                                   int(data['lunchCalories']), 
+                                   float(data['breakfastCalories']), 
+                                   float(data['lunchCalories']), 
                                    data['diet'], 
                                    float(data['height']), 
                                    float(data['weight']), 

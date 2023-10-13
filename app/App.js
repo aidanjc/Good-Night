@@ -20,10 +20,10 @@ const Home = () => {
         initialRouteName="Home" 
         screenOptions={{
           tabBarStyle: { 
-            backgroundColor: 'black', // TODO: Change
+            backgroundColor: 'black',
           },
-            tabBarActiveTintColor: '#FFE400', // TODO: Change
-          tabBarInactiveTintColor: 'white', // TODO: Change
+            tabBarActiveTintColor: '#FFE400',
+          tabBarInactiveTintColor: 'white',
           headerShown: false,
         }}
       >
@@ -68,7 +68,6 @@ const Home = () => {
   );
 }
 
-//<Stack.Screen name="Home" component={TabNavigator} />
 export default function App() {
   return (
     <NavigationContainer>

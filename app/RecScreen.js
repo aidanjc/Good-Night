@@ -29,7 +29,6 @@ const RecItem = ({ content }) => {
 
 const CategoryList = ({ title, recList }) => {
   return (
-    // <View style={styles.categoryListStyle}>
     <LinearGradient 
     colors={['#9614FF', '#C57DFF']}
     style={[styles.categoryListStyle]}>
@@ -39,15 +38,8 @@ const CategoryList = ({ title, recList }) => {
       renderItem={({ item }) => <RecItem content={item} />}
       contentContainerStyle={styles.categoryList}
       style={{ width: "100%" }}
-      // ListHeaderComponent={() => (
-      //   <Text style={styles.categoryHeader}>
-      //     {title}
-      //   </Text>
-      // )}
     />
     </LinearGradient>
-    // </View>
-    
   );  
 }
 
@@ -143,7 +135,6 @@ const styles = StyleSheet.create({
     textAlign: "left",
     alignSelf: "stretch",
     paddingLeft: "7%",
-    // backgroundColor: "skyblue", //used this to see the view
     paddingBottom: "10%",
     fontWeight: "900",
     fontSize: 30,
@@ -170,43 +161,10 @@ const styles = StyleSheet.create({
   flexDirection: "column", 
   justifyContent: "center", 
   width: "100%", 
-  borderRadius: "20%",
+  borderRadius: 20,
   backgroundColor: "#FF9D00",
   paddingBottom: "2%",
 }
 });
 
 export { RecScreen };
-
-// const CategoryList = ({ title, recList }) => {
-//   return (
-//     // <View style={styles.categoryListStyle}>
-//     <LinearGradient 
-//     colors={['#FFB000', '#FFDD94']}
-//     style={[styles.categoryListStyle]}>
-//       <Text style={{textAlign: 'center'}}> {title} </Text>
-//       <FlatList 
-//       data={recList}
-//       renderItem={({ item }) => <RecItem content={item} />}
-//       contentContainerStyle={styles.categoryList}
-//       style={{ width: "100%" }}
-//       // ListHeaderComponent={() => (
-//       //   <Text style={styles.categoryHeader}>
-//       //     {title}
-//       //   </Text>
-//       // )}
-//     />
-//     </LinearGradient>
-//     // </View>
-    
-//   );  
-// }
-// categoryListStyle: {
-//   flex: 1,
-//   backgroundColor: "white", 
-//   flexDirection: "column", 
-//   justifyContent: "center", 
-//   width: "100%", 
-//   borderRadius: "20%",
-//   backgroundColor: "#FF9D00",
-// }

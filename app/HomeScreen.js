@@ -172,14 +172,7 @@ const SleepDateContainer = () => {
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      {/* Status bar (we dont really need to do anything for this) */}
       <StatusBar style="auto" />
-      
-      {/* Shows the day of the week and current date */}
-      {/* <View style={styles.date_container}> 
-        <Text style={styles.day_style}> Today </Text>
-        <Text style={styles.date_style}> January 31, 2023 </Text>
-      </View> */}
       <SleepDateContainer />
       <SleepQualityIndicator />
       <SleepInfoContainer />
@@ -206,12 +199,10 @@ const styles = StyleSheet.create({
     textAlign: "left",
     alignSelf: "stretch",
     paddingLeft: "7%",
-    // backgroundColor: "skyblue", //used this to see the view
     paddingBottom: "10%",
   },
   circle: {
     flex: 1,
-    // backgroundColor: "tan", //used this to see the view
     alignSelf: "stretch",
     justifyContent: "center",
     flexDirection: "row"

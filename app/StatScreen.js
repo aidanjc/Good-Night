@@ -233,8 +233,6 @@ const TestStats = () => {
 
   return (
   <ScrollView style={{flex: 1,}}>
-
-    {/* <Text> {timeInBedPast7Days} </Text> */}
     <Text style={styles.stats_container}>Sleep Time</Text>
     <LineChartStats 
       label={past7Logs}
@@ -306,7 +304,6 @@ const styles = StyleSheet.create({
     textAlign: "left",
     alignSelf: "stretch",
     paddingLeft: "7%",
-    // backgroundColor: "skyblue", //used this to see the view
     paddingBottom: "1%",
     fontWeight: "900",
     fontSize: 30,
@@ -315,7 +312,6 @@ const styles = StyleSheet.create({
     flex: 0,
     textAlign: "center",
     alignSelf: "stretch",
-    // backgroundColor: "skyblue", //used this to see the view
     paddingBottom: "1%",
     fontWeight: "900",
     fontSize: 18,
