@@ -4,8 +4,7 @@ import { StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native';
 import { LineChart } from 'react-native-chart-kit'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
-
-const ip = "http://localhost:5000/"
+import { baseurl } from './baseurl'
 
 const StatContainer = ({icon, stat, label}) => {
   return (
@@ -30,24 +29,24 @@ const ShowSleepStatsContainer = () => {
   const [timeInBed30, setTimeInBed30] = useState(null)
   useEffect(() => {
     const fetchTimeInBed = async () => {
-      const response = await fetch(ip + "/api/avg-time-in-bed");
+      const response = await fetch(baseurl + "/api/avg-time-in-bed");
       const data = await response.json();
       setTimeInBed(data["avgTimeInBed"]);
     }
     const fetchTimeBeforeBed = async () => {
-      const response = await fetch(ip + "/api/get-last-7-logs-before-sleep");
+      const response = await fetch(baseurl + "/api/get-last-7-logs-before-sleep");
       const data = await response.json();
       setTimeBeforeBed(data["timeBeforeSleep"]);
     }
 
     const fetchTimeBeforeBed30 = async () => {
-      const response = await fetch(ip + "/api/get-last-30-logs-time-before-sleep");
+      const response = await fetch(baseurl + "/api/get-last-30-logs-time-before-sleep");
       const data = await response.json();
       setTimeBeforeBed30(data["timeBeforeSleep"]);
     }
 
     const fetchTimeInBed30 = async () => {
-      const response = await fetch(ip + "/api/get-last-30-logs-time-in-bed")
+      const response = await fetch(baseurl + "/api/get-last-30-logs-time-in-bed")
       const data = await response.json();
       setTimeInBed30(data["timeInBed"])
     }
@@ -94,13 +93,13 @@ const ShowActivityStatsContainer = () => {
   const [logsSteps30, setLogsSteps30] = useState(null)
   useEffect(() => {
     const fetchSteps = async () => {
-      const response = await fetch(ip + "/api/get-last-7-logs-steps");
+      const response = await fetch(baseurl + "/api/get-last-7-logs-steps");
       const data = await response.json();
       setSteps(data["steps"]);
     }
 
     const fetch30Steps = async () => {
-      const response = await fetch(ip + "/api/get-last-30-logs-steps");
+      const response = await fetch(baseurl + "/api/get-last-30-logs-steps");
       const data = await response.json();
       setLogsSteps30(data["steps"]);
     }
@@ -131,7 +130,7 @@ const ShowSleepQualityStatsContainer = () => {
   const [sleepQuality30, setSleepQuality30] = useState(null)
   useEffect(() => {
     const fetchSleepQualities = async () => {
-      const response = await fetch(ip + "/api/get-sleep-qualities");
+      const response = await fetch(baseurl + "/api/get-sleep-qualities");
       const data = await response.json();
       setSleepQuality7(data["sleep"][0]);
       setSleepQuality30(data["sleep"][1])
@@ -201,25 +200,25 @@ const TestStats = () => {
 
   useEffect(() => {
     const fetchPast7Logs = async () => {
-      const response = await fetch(ip + "/api/get-dates-past-7-logs");
+      const response = await fetch(baseurl + "/api/get-dates-past-7-logs");
       const data = await response.json();
       setpast7Logs(data["past7Logs"]);
     }
 
     const fetchTimeInBedPast7Logs = async () => {
-      const response = await fetch(ip + "/api/get-time-asleep-past-7-logs");
+      const response = await fetch(baseurl + "/api/get-time-asleep-past-7-logs");
       const data = await response.json();
       setTimeInBedPast7Logs(data["sleepTime7Logs"]);
     }
 
     const fetchLast7LogsSteps = async () => {
-      const response = await fetch(ip + "/api/get-steps-last-7-logs");
+      const response = await fetch(baseurl + "/api/get-steps-last-7-logs");
       const data = await response.json();
       setLast7LogsSteps(data["steps7Logs"]);
     }
     
     const fetchLast7LogsSleepQuality = async () => {
-      const response = await fetch(ip + "/api/get-sleep-quality-last-7-logs");
+      const response = await fetch(baseurl + "/api/get-sleep-quality-last-7-logs");
       const data = await response.json();
       setLast7LogsSleepQuality(data["sleepQuality7Logs"]);
     }

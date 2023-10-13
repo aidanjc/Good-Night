@@ -9,15 +9,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-
-// TODO - replace 'localhost' by doing the following
-// 1. cd to Good-Night/app/
-// 2. run expo start
-// 3. find the ip address directly below the QR code
-// 4. replace 'localhost' with everything between
-//    'exp://' and ':' from the ip below the QR code
-
-const ip = "http://localhost:5000/"
+import { baseurl } from './baseurl'
 
 const BtnGroup = ({ label, values, selectedValue, setSelectedValue }) => {
   return (
@@ -62,7 +54,7 @@ const SignInScreen = ({ navigation }) => {
   }
 
   const submitInput = async () => {
-    const response = await fetch(ip + "/api/signup", {
+    const response = await fetch(baseurl + "/api/signup", {
       method: "POST",
       body: JSON.stringify({
         gender: gender,

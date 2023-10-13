@@ -9,15 +9,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-
-// TODO - replace 'localhost' by doing the following
-// 1. cd to Good-Night/app/
-// 2. run expo start
-// 3. find the ip address directly below the QR code
-// 4. replace 'localhost' with everything between
-//    'exp://' and ':' from the ip below the QR code
-
-const ip = "http://localhost:5000/"
+import { baseurl } from './baseurl';
 
 const BtnGroup = ({ label, values, selectedValue, setSelectedValue }) => {
   return (
@@ -51,7 +43,7 @@ const PersonalScreen = ({ navigation }) => {
   
   useEffect(() => {
     const fetchPersonalData = async () => {
-      const response = await fetch(ip + "/api/personal-data");
+      const response = await fetch(baseurl + "/api/personal-data");
       const data = await response.json();
       setGender(data["gender"]);
       setDiet(data["diet"]);
@@ -64,7 +56,7 @@ const PersonalScreen = ({ navigation }) => {
   }, []);
 
   const updatePersonalData = async () => {
-    const response = await fetch(ip + "/api/personal-data-update", {
+    const response = await fetch(baseurl + "/api/personal-data-update", {
       method: "POST",
       body: JSON.stringify({
         gender: gender,

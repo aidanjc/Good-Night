@@ -7,14 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-// TODO - replace 'localhost' by doing the following
-// 1. cd to Good-Night/app/
-// 2. run expo start
-// 3. find the ip address directly below the QR code
-// 4. replace 'localhost' with everything between
-//    'exp://' and ':' from the ip below the QR code
-
-const ip = "http://localhost:5000/"
+import { baseurl } from './baseurl';
 
 const RecItem = ({ content }) => {
   return (
@@ -48,7 +41,7 @@ const SleepRecList = () => {
 
   useEffect(() => {
     const fetchSleepRecs = async () => {
-      const response = await fetch(ip + "/api/sleep-rec-list");
+      const response = await fetch(baseurl + "/api/sleep-rec-list");
       const data = await response.json();
       setSleepRecs(data["sleepRecList"])
     }
@@ -66,7 +59,7 @@ const DietRecList = () => {
 
   useEffect(() => {
     const fetchDietRecs = async () => {
-      const response = await fetch(ip + "/api/diet-rec-list");
+      const response = await fetch(baseurl + "/api/diet-rec-list");
       const data = await response.json();
       setDietRecs(data["dietRecList"])
     }
@@ -84,7 +77,7 @@ const ExerciseRecList = () => {
 
   useEffect(() => {
     const fetchExerciseRecs = async () => {
-      const response = await fetch(ip + "/api/exercise-rec-list");
+      const response = await fetch(baseurl + "/api/exercise-rec-list");
       const data = await response.json();
       setExerciseRecs(data["exerciseRecList"])
     }

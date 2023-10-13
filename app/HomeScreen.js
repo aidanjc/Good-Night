@@ -3,22 +3,14 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
-
-// TODO - replace 'localhost' by doing the following
-// 1. cd to Good-Night/app/
-// 2. run expo start
-// 3. find the ip address directly below the QR code
-// 4. replace 'localhost' with everything between
-//    'exp://' and ':' from the ip below the QR code
-
-const ip = "http://localhost:5000/"
+import { baseurl } from './baseurl';
 
 const SleepQualityIndicator = () => {
   const [sleepQuality, setSleepQuality] = useState(null);
 
   useEffect(() => {
     const fetchSleepQuality = async () => {
-      const response = await fetch(ip + "/api/sleep-quality");
+      const response = await fetch(baseurl + "/api/sleep-quality");
       const data = await response.json();
       setSleepQuality(data["sleepQuality"]);
     }
@@ -78,19 +70,19 @@ const SleepInfoContainer = () => {
 
   useEffect(() => {
     const fetchTimeAsleep = async () => {
-      const response = await fetch(ip + "/api/time-asleep");
+      const response = await fetch(baseurl + "/api/time-asleep");
       const data = await response.json();
       setTimeAsleep(data["timeAsleep"]);
     }
 
     const fetchSleepStart = async () => {
-      const response = await fetch(ip + "/api/sleep-start");
+      const response = await fetch(baseurl + "/api/sleep-start");
       const data = await response.json();
       setSleepStart(data["sleepStart"]);
     }
 
     const fetchSleepEnd = async () => {
-      const response = await fetch(ip + "/api/sleep-end");
+      const response = await fetch(baseurl + "/api/sleep-end");
       const data = await response.json();
       setSleepEnd(data["sleepEnd"]);
     }
@@ -130,7 +122,7 @@ const SleepRecContainer = () => {
 
   useEffect(() => {
     const fetchSleepRec = async () => {
-      const response = await fetch(ip + "/api/top-sleep-rec");
+      const response = await fetch(baseurl + "/api/top-sleep-rec");
       const data = await response.json();
       setSleepRec(data["topSleepRec"])
     }
@@ -154,7 +146,7 @@ const SleepDateContainer = () => {
 
   useEffect(() => {
     const fetchSleepDate = async () => {
-      const response = await fetch(ip + "/api/date-recorded");
+      const response = await fetch(baseurl + "/api/date-recorded");
       const data = await response.json();
       setdateRecorded(data["dateRecorded"]);
     }
